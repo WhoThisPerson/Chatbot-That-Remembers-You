@@ -1,15 +1,12 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
 import postgres from "postgres";
+import { env } from "@/lib/env";
 
-const databaseUrl = process.env.DATABASE_URL;
+const databaseUrl = env.DATABASE_URL;
 
 const runMigrate = async () => {
-  if (!databaseUrl) {
-    throw new Error("DATABASE_URL is not defined");
-  }
 
-  
   const connection = postgres(databaseUrl, { max: 1 });
 
   const db = drizzle(connection);
